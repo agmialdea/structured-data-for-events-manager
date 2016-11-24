@@ -6,12 +6,11 @@ Description: Automatically adds structured data to events posts created with the
 Author: Alejandro Gil Mialdea
 Author URI: https://agmialdea.info
 
-Version: 0.1
-Depends: events-manager
-
 Text Domain: em-schemaorg
 Domain Path: /languages/
 
+Version: 0.1
+Depends: events-manager
 License: GPLv3
 */
 
@@ -25,6 +24,23 @@ add_action( 'plugins_loaded', function ()
 {
 	load_plugin_textdomain( 'em-schemaorg', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 } );
+
+// No activar si no está activo Events Manager
+add_action( 'admin_init', function ()
+{    
+    if ( !is_plugin_active( 'events-manager/events-manager.php' ) )
+    {
+        deactivate_plugins( plugin_basename(__FILE__) );
+        add_action( 'admin_notices', function ()
+        {
+            $class = 'notice notice-warning is-dismissible';
+            $message = sprintf( wp_kses( __( 'El plugin <strong>SCHEMA.ORG para Events Manager</strong> se ha desactivado. Su activación depende de que el plugin <a href="%1$s" class="%2$s">Events Manager</a> esté activo.', 'em-schemaorg' ), array(  'a' => array( 'href' => array(), 'class' => array() ), 'strong' => array() ) ), esc_url( get_admin_url(null, 'plugin-install.php?tab=plugin-information&amp;plugin=events-manager&amp;TB_iframe=true&amp;width=600&amp;height=550') ), esc_attr( 'thickbox open-plugin-details-modal' ) );
+
+            printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
+        } );
+    }
+
+}, 20 );
 
 // 
 add_action( 'wp_footer', function () {
@@ -42,7 +58,7 @@ add_action( 'wp_footer', function () {
     
     // Título del evento
     $ems_titulo_yoast = get_post_meta( get_the_ID(), '_yoast_wpseo_title', true );
-    if ( empty( $tituloyoast ) )
+    if ( empty( $ems_titulo_yoast ) )
     {
         $ems_jsonld .= '"name": "' . get_the_title() . '",
         ';
