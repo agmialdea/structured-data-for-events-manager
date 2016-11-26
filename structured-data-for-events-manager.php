@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Schema.org for Events Manager
-Plugin URI: http://agmialdea.info/events-manager-schemaorg
+Plugin Name: Structured data for Events Manager
+Plugin URI: http://agmialdea.info/events-manager-structured-data
 Description: Automatically adds structured data to events posts created with the Events Manager plugin by JSON-LD method
 Author: Alejandro Gil Mialdea
 Author URI: https://agmialdea.info
