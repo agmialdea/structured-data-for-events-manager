@@ -1,7 +1,7 @@
-=== Schema.org for Events Manager ===
+=== Structured data for Events Manager ===
 Contributors: Alejandro Gil Mialdea
 Donate link: https://www.paypal.me/agmialdea/
-Tags: events, events manager, structure data, schema.org, json-ld
+Tags: events, events manager, structured data, schema.org, json-ld
 Requires at least: 3.0
 Tested up to: 4.6.1
 Stable tag: 0.1
